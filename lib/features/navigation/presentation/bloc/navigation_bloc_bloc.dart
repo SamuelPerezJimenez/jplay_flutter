@@ -5,12 +5,12 @@ part 'navigation_bloc_event.dart';
 part 'navigation_bloc_state.dart';
 
 class NavigationBloc extends Bloc<NavigationBlocEvent, NavigationBlocState> {
-  NavigationBloc() : super(PickUpPageNavigationState()) {
+  NavigationBloc() : super(const PickUpPageNavigationState()) {
     on<NavigateToPickUpPageEvent>((event, emit) {
-      emit(PickUpPageNavigationState());
+      emit(const PickUpPageNavigationState());
     });
     on<NavigateToSettingsPageEvent>((event, emit) {
-      emit(SettingsPagesNavigationState());
+      emit(const SettingsPagesNavigationState());
     });
   }
 }
