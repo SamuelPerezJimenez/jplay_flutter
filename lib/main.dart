@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'injection_container.dart' as injection;
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await injection.init();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

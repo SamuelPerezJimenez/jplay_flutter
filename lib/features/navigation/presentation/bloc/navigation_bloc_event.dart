@@ -6,3 +6,7 @@ sealed class NavigationBlocEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class NavigateToPickUpPageEvent extends NavigationBlocEvent {}
+
+class NavigateToSettingsPageEvent extends NavigationBlocEvent {}
