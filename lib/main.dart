@@ -4,6 +4,7 @@ import 'core/constants/global_keys.dart';
 import 'features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'features/authentication/presentation/pages/login_page.dart';
 import 'features/navigation/presentation/bloc/navigation_bloc_bloc.dart';
+import 'features/navigation/presentation/pages/navigation_page.dart';
 import 'features/navigation/presentation/widgets/navigation_bar.dart';
 import 'injection_container.dart' as injection;
 import 'injection_container.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 if (state is Authenticated) {
-                  return Container();
+                  return const NavigationPage();
                 } else {
                   return const LoginPage();
                 }
