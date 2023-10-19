@@ -35,3 +35,19 @@ class UnexpectedFailure extends Failure {
       {this.message = 'UnexpectedFailure, please contact 1-909-232-3232'})
       : super(message: message);
 }
+
+class NoDataFailure extends Failure {
+  @override
+  final String message;
+
+  const NoDataFailure({this.message = 'No data available'})
+      : super(message: message);
+}
+
+class CacheFailure extends Failure {
+  @override
+  final String message;
+
+  const CacheFailure({this.message = 'Cache failure'})
+      : super(message: message);
+}

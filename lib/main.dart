@@ -6,6 +6,9 @@ import 'features/authentication/presentation/pages/login_page.dart';
 import 'features/navigation/presentation/bloc/navigation_bloc_bloc.dart';
 import 'features/navigation/presentation/pages/navigation_page.dart';
 import 'features/navigation/presentation/widgets/navigation_bar.dart';
+import 'features/preferences/presentation/bloc/preferences_bloc.dart';
+import 'features/preferences/presentation/pages/city_selection_page.dart';
+import 'features/preferences/presentation/pages/sport_selection_page.dart';
 import 'injection_container.dart' as injection;
 import 'injection_container.dart';
 
@@ -21,43 +24,67 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scaffoldMessengerKey: scaffoldMessengerKey,
-      title: 'Jplay',
-      home: MultiBlocProvider(
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        title: 'Jplay',
+        home: MultiBlocProvider(
           providers: [
             BlocProvider<NavigationBloc>(
               create: (_) => sl<NavigationBloc>(),
             ),
-          ],
-          child: BlocProvider(
-            create: (_) => sl<AuthenticationBloc>(),
-            child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
-                if (state is Authenticated) {
-                  return const NavigationPage();
-                } else {
-                  return const LoginPage();
-                }
-              },
+            BlocProvider<AuthenticationBloc>(
+              create: (_) => sl<AuthenticationBloc>(),
             ),
-          )
-          // body: BlocBuilder<NavigationBloc, NavigationBlocState>(
-          //   builder: (BuildContext context, NavigationBlocState state) {
-          //     if (state is PickUpPageNavigationState) {
-          //       return const Center(
-          //         child: Text('Pick Up'),
-          //       );
-          //     } else if (state is SettingsPagesNavigationState) {
-          //       return const Center(
-          //         child: Text('Settings'),
-          //       );
-          //     }
-          //     return Container();
-          //   },
-          // ),
-          // bottomNavigationBar: const NavigationBarWidget(),
+            BlocProvider<PreferencesBloc>(
+              create: (_) => sl<PreferencesBloc>(),
+            ),
+          ],
+          child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+            listener: (context, authState) {
+              if (authState is Authenticated) {
+                context.read<PreferencesBloc>().add(LoadPreferences());
+              }
+            },
+            builder: (context, authState) {
+              if (authState is Authenticated) {
+                return BlocBuilder<PreferencesBloc, PreferencesState>(
+                  builder: (context, prefState) {
+                    if (prefState is PreferencesLoaded) {
+                      if (prefState.cityId != null &&
+                          prefState.sportId != null) {
+                        return const NavigationPage();
+                      } else if (prefState.cityId == null) {
+                        return const CitySelectionPage();
+                      } else if (prefState.sportId == null) {
+                        return const SportSelectionPage();
+                      }
+                    }
 
+                    return Container(); // Puede ser una página de carga o cualquier otro contenedor predeterminado
+                  },
+                );
+              } else {
+                return const LoginPage();
+              }
+            },
           ),
-    );
+        )
+
+        // body: BlocBuilder<NavigationBloc, NavigationBlocState>(
+        //   builder: (BuildContext context, NavigationBlocState state) {
+        //     if (state is PickUpPageNavigationState) {
+        //       return const Center(
+        //         child: Text('Pick Up'),
+        //       );
+        //     } else if (state is SettingsPagesNavigationState) {
+        //       return const Center(
+        //         child: Text('Settings'),
+        //       );
+        //     }
+        //     return Container();
+        //   },
+        // ),
+        // bottomNavigationBar: const NavigationBarWidget(),
+
+        );
   }
 }

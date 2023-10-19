@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "navigation",
         "authentication",
-        "widgets"
+        "widgets",
+        "preferences"
     ]
 }
