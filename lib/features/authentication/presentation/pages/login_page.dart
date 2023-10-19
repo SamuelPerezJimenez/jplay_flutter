@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 16.0),
               TextFormFieldWidget(
-                labelText: "password",
+                labelText: "Password",
                 hinText: "password",
                 obscureText: true,
                 controller: _passwordController,
@@ -64,18 +64,24 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              SubmitButtonWidget(
-                onPressed: _isButtonEnabled
-                    ? () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<AuthenticationBloc>().add(LoginEvent(
-                              email: _emailController.text,
-                              password: _passwordController.text));
-                        }
-                      }
-                    : null,
-                buttonText: "Log In",
-              ),
+              Center(
+                  child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) {
+                  return SubmitButtonWidget(
+                      onPressed: _isButtonEnabled
+                          ? () {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<AuthenticationBloc>().add(
+                                    LoginEvent(
+                                        email: _emailController.text,
+                                        password: _passwordController.text));
+                              }
+                            }
+                          : null,
+                      buttonText: "Log In",
+                      loading: state is Authenticating);
+                },
+              )),
             ],
           ),
         ),

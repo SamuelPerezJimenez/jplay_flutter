@@ -16,12 +16,15 @@ class AuthenticationBloc
     on<LoginEvent>((event, emit) async {
       emit(Authenticating());
 
+      await Future.delayed(const Duration(seconds: 3));
+
       final loginResult =
           await authenticationRepository.login(event.email, event.password);
 
       loginResult.fold((failure) {
         final snackBar = SnackBarWidget(scaffoldMessengerKey);
         snackBar.show(failure.message, SnackBarType.failure);
+        emit(Unauthenticated());
       }, (user) {
         final snackBar = SnackBarWidget(scaffoldMessengerKey);
         snackBar.show("Welcome", SnackBarType.success);
