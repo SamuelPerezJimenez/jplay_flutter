@@ -16,7 +16,7 @@ class AuthenticationBloc
     on<LoginEvent>((event, emit) async {
       emit(Authenticating());
 
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 1));
 
       final loginResult =
           await authenticationRepository.login(event.email, event.password);

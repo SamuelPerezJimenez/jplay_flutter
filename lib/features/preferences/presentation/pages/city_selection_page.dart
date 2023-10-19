@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jplay_flutter/core/theme/theme.dart';
 import 'package:jplay_flutter/core/widgets/textformfield_widget.dart';
+import 'package:jplay_flutter/features/preferences/presentation/pages/sport_selection_page.dart';
 
 import '../../data/models/city_model.dart';
 import '../bloc/preferences_bloc.dart';
 
 class CitySelectionPage extends StatefulWidget {
-  const CitySelectionPage({super.key});
+  const CitySelectionPage({super.key, required this.isFirstTime});
+
+  final bool isFirstTime;
 
   @override
   _CitySelectionPageState createState() => _CitySelectionPageState();
@@ -41,7 +44,22 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
   }
 
   void _handleCitySelection(int cityId) {
-    context.read<PreferencesBloc>().add(UpdateCityPreference(cityId: cityId));
+    final preferencesBloc = BlocProvider.of<PreferencesBloc>(context);
+    preferencesBloc.add(UpdateCityPreference(cityId: cityId));
+    if (mounted) {
+      if (widget.isFirstTime) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BlocProvider.value(
+                value: preferencesBloc,
+                child: const SportSelectionPage(isFirstTime: true),
+              ),
+            ));
+      } else {
+        Navigator.pop(context, cityId);
+      }
+    }
   }
 
   @override

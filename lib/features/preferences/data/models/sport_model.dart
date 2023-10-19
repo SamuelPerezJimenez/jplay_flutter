@@ -17,3 +17,8 @@ List<Sport> sports = [
   Sport(id: 2, name: 'Baseball', iconData: Icons.sports_baseball),
   Sport(id: 3, name: 'Basketball', iconData: Icons.sports_basketball),
 ];
+
+String? getSportNameFromId(int? sportId) {
+  Sport? foundSport = sports.firstWhere((sport) => sport.id == sportId);
+  return foundSport.name;
+}

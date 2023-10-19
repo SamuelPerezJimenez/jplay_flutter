@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        navigatorKey: navigatorKey,
         scaffoldMessengerKey: scaffoldMessengerKey,
         title: 'Jplay',
         home: MultiBlocProvider(
@@ -53,13 +54,15 @@ class MyApp extends StatelessWidget {
                           prefState.sportId != null) {
                         return const NavigationPage();
                       } else if (prefState.cityId == null) {
-                        return const CitySelectionPage();
+                        return const CitySelectionPage(isFirstTime: true);
                       } else if (prefState.sportId == null) {
-                        return const SportSelectionPage();
+                        return const SportSelectionPage(isFirstTime: true);
+                      } else if ((prefState is SportPreferenceUpdated ||
+                          prefState is CityPreferenceUpdated)) {
+                        return const NavigationPage();
                       }
                     }
-
-                    return Container(); // Puede ser una página de carga o cualquier otro contenedor predeterminado
+                    return Container();
                   },
                 );
               } else {

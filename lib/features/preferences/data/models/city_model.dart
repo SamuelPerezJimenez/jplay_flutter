@@ -33,3 +33,8 @@ List<City> cities = [
       longitude: -87.6298,
       location: "Illinois, USA"),
 ];
+
+String? getCityNameFromId(int? cityId) {
+  City? foundCity = cities.firstWhere((city) => city.id == cityId);
+  return foundCity.name;
+}

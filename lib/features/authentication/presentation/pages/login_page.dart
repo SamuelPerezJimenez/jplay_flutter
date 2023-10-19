@@ -71,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: _isButtonEnabled
                           ? () {
                               if (_formKey.currentState!.validate()) {
+                                FocusScope.of(context).unfocus();
                                 context.read<AuthenticationBloc>().add(
                                     LoginEvent(
                                         email: _emailController.text,

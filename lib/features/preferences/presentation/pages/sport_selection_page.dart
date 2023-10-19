@@ -4,11 +4,14 @@ import 'package:jplay_flutter/core/theme/theme.dart';
 import 'package:jplay_flutter/core/widgets/textformfield_widget.dart';
 import 'package:jplay_flutter/features/preferences/data/models/sport_model.dart';
 
+import '../../../../core/constants/global_keys.dart';
+import '../../../navigation/presentation/pages/navigation_page.dart';
 import '../../data/models/city_model.dart';
 import '../bloc/preferences_bloc.dart';
 
 class SportSelectionPage extends StatefulWidget {
-  const SportSelectionPage({super.key});
+  const SportSelectionPage({super.key, required this.isFirstTime});
+  final bool isFirstTime;
 
   @override
   _SportSelectionPageState createState() => _SportSelectionPageState();
@@ -42,9 +45,24 @@ class _SportSelectionPageState extends State<SportSelectionPage> {
   }
 
   void _handleSportSelection(int sportId) {
-    context
-        .read<PreferencesBloc>()
-        .add(UpdateSportPreference(sportId: sportId));
+    final preferencesBloc = BlocProvider.of<PreferencesBloc>(context);
+
+    preferencesBloc.add(UpdateSportPreference(sportId: sportId));
+    if (mounted) {
+      if (widget.isFirstTime) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+              value: preferencesBloc,
+              child: const NavigationPage(),
+            ),
+          ),
+        );
+      } else if (mounted) {
+        Navigator.pop(context, sportId);
+      }
+    }
   }
 
   @override
