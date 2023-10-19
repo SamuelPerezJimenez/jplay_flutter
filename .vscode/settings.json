@@ -3,6 +3,7 @@
         "navigation",
         "authentication",
         "widgets",
-        "preferences"
+        "preferences",
+        "games"
     ]
 }

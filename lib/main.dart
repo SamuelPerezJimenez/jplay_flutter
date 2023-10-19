@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         scaffoldMessengerKey: scaffoldMessengerKey,
         title: 'Jplay',
@@ -70,24 +71,6 @@ class MyApp extends StatelessWidget {
               }
             },
           ),
-        )
-
-        // body: BlocBuilder<NavigationBloc, NavigationBlocState>(
-        //   builder: (BuildContext context, NavigationBlocState state) {
-        //     if (state is PickUpPageNavigationState) {
-        //       return const Center(
-        //         child: Text('Pick Up'),
-        //       );
-        //     } else if (state is SettingsPagesNavigationState) {
-        //       return const Center(
-        //         child: Text('Settings'),
-        //       );
-        //     }
-        //     return Container();
-        //   },
-        // ),
-        // bottomNavigationBar: const NavigationBarWidget(),
-
-        );
+        ));
   }
 }
