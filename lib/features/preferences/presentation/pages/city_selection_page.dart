@@ -4,6 +4,7 @@ import 'package:jplay_flutter/core/theme/theme.dart';
 import 'package:jplay_flutter/core/widgets/textformfield_widget.dart';
 import 'package:jplay_flutter/features/preferences/presentation/pages/sport_selection_page.dart';
 
+import '../../../../injection_container.dart';
 import '../../data/models/city_model.dart';
 import '../bloc/preferences_bloc.dart';
 
@@ -52,7 +53,7 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
             context,
             MaterialPageRoute(
               builder: (context) => BlocProvider.value(
-                value: preferencesBloc,
+                value: sl<PreferencesBloc>(),
                 child: const SportSelectionPage(isFirstTime: true),
               ),
             ));

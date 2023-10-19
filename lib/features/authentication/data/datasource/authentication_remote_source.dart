@@ -12,21 +12,17 @@ class AuthenticationRemoteDataSourceImpl
 
   @override
   Future<UserModel?> login(String email, String password) async {
-    try {
-      final userMap = usersData.firstWhere(
-        (user) => user['email'] == email && user['password'] == password,
-      );
+    final userMap = usersData.firstWhere(
+      (user) => user['email'] == email && user['password'] == password,
+      orElse: () => {},
+    );
 
-      _user =
-          UserModel(email: userMap['email']!, password: userMap['password']!);
-      return _user;
-    } catch (e) {
-      if (e is StateError) {
-        return null;
-      } else {
-        rethrow;
-      }
+    if (userMap.isEmpty) {
+      return null;
     }
+
+    _user = UserModel(email: userMap['email']!, password: userMap['password']!);
+    return _user;
   }
 
   @override

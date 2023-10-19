@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jplay_flutter/core/theme/theme.dart';
 import 'package:jplay_flutter/core/widgets/textformfield_widget.dart';
 import 'package:jplay_flutter/features/preferences/data/models/sport_model.dart';
+import 'package:jplay_flutter/injection_container.dart';
 
 import '../../../../core/constants/global_keys.dart';
 import '../../../navigation/presentation/pages/navigation_page.dart';
@@ -44,7 +45,7 @@ class _SportSelectionPageState extends State<SportSelectionPage> {
     });
   }
 
-  void _handleSportSelection(int sportId) {
+  Future<void> _handleSportSelection(int sportId) async {
     final preferencesBloc = BlocProvider.of<PreferencesBloc>(context);
 
     preferencesBloc.add(UpdateSportPreference(sportId: sportId));
@@ -54,7 +55,7 @@ class _SportSelectionPageState extends State<SportSelectionPage> {
           context,
           MaterialPageRoute(
             builder: (context) => BlocProvider.value(
-              value: preferencesBloc,
+              value: sl<PreferencesBloc>(),
               child: const NavigationPage(),
             ),
           ),
