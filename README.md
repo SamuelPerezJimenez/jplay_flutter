@@ -40,7 +40,6 @@ La aplicación provee un sistema de autenticación de usuarios. Inicialmente, se
 ### Características
 
 - **Inicio de Sesión de Usuario**: Los usuarios deben iniciar sesión utilizando credenciales predefinidas (hardcoded).
-  - Si un usuario ya está autenticado, el botón "Iniciar Sesión" se reemplaza por "Cerrar Sesión".
   - El estado de inicio de sesión del usuario se almacena en las preferencias para mantener el estado de la sesión.
 
 ---
