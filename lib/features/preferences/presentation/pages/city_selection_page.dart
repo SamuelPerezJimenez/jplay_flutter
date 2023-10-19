@@ -110,7 +110,6 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
                       ),
                     ),
                   ),
-                  // tileColor: Colors.grey[200],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
