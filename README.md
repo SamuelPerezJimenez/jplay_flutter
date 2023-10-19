@@ -23,6 +23,12 @@ Para ejecutar este proyecto, necesitarás lo siguiente:
 4. [Juegos](#juegos)
 5. [Navegación](#navegación)
 
+
+
+![Jplay](https://github.com/SamuelPerezJimenez/jplay_flutter/assets/56012784/68a13fd1-1b08-4d7c-8c56-fe88bf5d7027)
+
+
+
 ---
 
 ## **Autenticación**
