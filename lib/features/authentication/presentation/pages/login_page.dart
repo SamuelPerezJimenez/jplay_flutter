@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jplay_flutter/core/constants/global_keys.dart';
 import 'package:jplay_flutter/core/theme/theme.dart';
+import 'package:jplay_flutter/core/validators.dart';
 import 'package:jplay_flutter/core/widgets/TextFormField_widget.dart';
 
 import '../../../../core/widgets/submit_button_widget.dart';
@@ -43,12 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                 hinText: "lesam@dev.do",
                 controller: _emailController,
                 onChanged: (v) => _updateButtonState(),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  return null;
-                },
+                validator: Validators.email,
               ),
               const SizedBox(height: 16.0),
               TextFormFieldWidget(
@@ -57,12 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 controller: _passwordController,
                 onChanged: (v) => _updateButtonState(),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
+                validator: Validators.nonEmpty,
               ),
               const SizedBox(height: 8.0),
               Align(
