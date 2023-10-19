@@ -18,10 +18,12 @@ class AuthenticationBloc
 
       final loginResult =
           await authenticationRepository.login(event.email, event.password);
-      final snackBar = SnackBarWidget(scaffoldMessengerKey);
+
       loginResult.fold((failure) {
+        final snackBar = SnackBarWidget(scaffoldMessengerKey);
         snackBar.show(failure.message, SnackBarType.failure);
       }, (user) {
+        final snackBar = SnackBarWidget(scaffoldMessengerKey);
         snackBar.show("Welcome", SnackBarType.success);
 
         emit(Authenticated());

@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TextFormFieldWidget extends StatefulWidget {
-  const TextFormFieldWidget({
-    Key? key,
-    this.validator,
-    this.onChanged,
-    this.onLongInput,
-    this.onShortInput,
-    required this.labelText,
-    this.keyboardType,
-    this.inputFormatters,
-    this.controller,
-    this.iconData,
-    this.obscureText = false,
-  }) : super(key: key);
+  const TextFormFieldWidget(
+      {Key? key,
+      this.validator,
+      this.onChanged,
+      this.onLongInput,
+      this.onShortInput,
+      required this.labelText,
+      this.keyboardType,
+      this.inputFormatters,
+      this.controller,
+      this.iconData,
+      this.obscureText = false,
+      this.hinText})
+      : super(key: key);
 
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
@@ -26,6 +27,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
   final IconData? iconData;
+  final String? hinText;
 
   @override
   TextFormFieldWidgetState createState() => TextFormFieldWidgetState();
@@ -40,16 +42,9 @@ class TextFormFieldWidgetState extends State<TextFormFieldWidget> {
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[300]!,
-            blurRadius: 4.0,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: Colors.grey)),
       child: TextFormField(
         controller: widget.controller,
         validator: widget.validator,
@@ -66,6 +61,7 @@ class TextFormFieldWidgetState extends State<TextFormFieldWidget> {
         inputFormatters: widget.inputFormatters,
         style: const TextStyle(fontSize: 16),
         decoration: InputDecoration(
+          hintText: widget.hinText,
           prefixIcon: widget.iconData != null
               ? Icon(widget.iconData, color: Colors.grey)
               : null,

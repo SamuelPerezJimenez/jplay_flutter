@@ -6,18 +6,27 @@ abstract class AuthenticationRemoteDataSource {
   Future<void> logout();
 }
 
-class AuthenticationLocalDataSourceImpl
+class AuthenticationRemoteDataSourceImpl
     implements AuthenticationRemoteDataSource {
   UserModel? _user;
 
   @override
   Future<UserModel?> login(String email, String password) async {
-    final userMap = usersData.firstWhere(
-      (user) => user['email'] == email && user['password'] == password,
-    );
+    try {
+      final userMap = usersData.firstWhere(
+        (user) => user['email'] == email && user['password'] == password,
+      );
 
-    _user = UserModel(email: userMap['email']!, password: userMap['password']!);
-    return _user;
+      _user =
+          UserModel(email: userMap['email']!, password: userMap['password']!);
+      return _user;
+    } catch (e) {
+      if (e is StateError) {
+        return null;
+      } else {
+        rethrow;
+      }
+    }
   }
 
   @override
